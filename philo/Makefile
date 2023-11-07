@@ -6,7 +6,7 @@
 #    By: pgouasmi <pgouasmi@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/06 15:47:49 by pgouasmi          #+#    #+#              #
-#    Updated: 2023/11/07 11:44:01 by pgouasmi         ###   ########.fr        #
+#    Updated: 2023/11/07 16:55:12 by pgouasmi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,8 +32,10 @@ HEADER = Includes/philo.h
 FILES = philo\
 		Initialization/struct_init\
 		Initialization/struct_init_utils\
+		Initialization/philo_init\
 		Utils/ft_atoi\
-		Free/free_struct
+		Free/free_struct\
+		Routine/routine
 		
 OBJS = $(addsuffix .o, $(addprefix Objects/, $(FILES)))
 
@@ -51,7 +53,7 @@ endif
 
 Objects/%.o: Sources/%.c Makefile $(HEADER)
 ifeq ($(OS),Linux)
-	$(DIR) Objects Objects/Initialization Objects/Utils Objects/Free
+	$(DIR) Objects Objects/Initialization Objects/Utils Objects/Free Objects/Routine
 	$(PRINT) "Compiling ${_BOLD}$<$(_END)..."
 	$(CC) -c $(CFLAGS) $< -o $@
 else

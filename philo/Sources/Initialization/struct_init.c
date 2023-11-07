@@ -6,7 +6,7 @@
 /*   By: pgouasmi <pgouasmi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 16:13:19 by pgouasmi          #+#    #+#             */
-/*   Updated: 2023/11/07 13:36:39 by pgouasmi         ###   ########.fr       */
+/*   Updated: 2023/11/07 16:54:10 by pgouasmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ static void	argv_into_struct(t_data	*data, char **argv)
 	data->time_to_sleep = ft_atoi(argv[4]);
 	if (argv[5])
 		data->meals_to_eat = ft_atoi(argv[5]);
+	else
+		data->meals_to_eat = -1;
 }
 
 __uint64_t	get_time_ms(void)
@@ -53,50 +55,10 @@ __uint64_t	get_time_ms(void)
 	return ((time_value.tv_sec * 1000) + (time_value.tv_usec / 1000));
 }
 
-void test_usleep()
-{
-	__uint64_t time;
-	__uint64_t request;
-	__uint64_t actual;
-
-	request = 1000000;
-	time = get_time_ms();
-	usleep(request);
-	actual = (get_time_ms() - time);
-	printf("actual = %ld\n", actual);
-}
-
-void	*routine(void *arg)
-{
-	t_data *temp;
-
-	temp = (t_data *)arg;
-	while (temp->philo_number <1000)
-		temp->philo_number++;
-	return (NULL);
-}
-
-void	test_thread(void)
-{
-	t_data *data;
-	pthread_t t1;
-	pthread_t t2;
-
-	data = malloc(sizeof(*data));
-	data->philo_number = 0;
-	pthread_create(&t1, NULL, routine, data);
-	pthread_create(&t2, NULL, routine, data);
-	pthread_join(t1, NULL);
-	pthread_join(t2, NULL);
-	printf("after threads, phi_num = %d", data->philo_number);
-
-}
-
 void	init_struct(t_data *data, char **argv)
 {
 	argv_into_struct(data, argv);
+	philo_init(data);
 	data->starttime = get_time_ms();
 	printf("time day = %ld\n", data->starttime);
-	test_usleep();
-	test_thread();
 }

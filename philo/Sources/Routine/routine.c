@@ -1,50 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_struct.c                                      :+:      :+:    :+:   */
+/*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgouasmi <pgouasmi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 10:36:30 by pgouasmi          #+#    #+#             */
-/*   Updated: 2023/11/07 16:59:56 by pgouasmi         ###   ########.fr       */
+/*   Created: 2023/11/07 16:37:18 by pgouasmi          #+#    #+#             */
+/*   Updated: 2023/11/07 17:02:23 by pgouasmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	free_philos(t_philo *lst, int philo_nbr)
+void	*routine(void *arg)
 {
-	t_philo	*temp;
+	(void)arg;
+	return (NULL);
+}
+
+void	thread_init(t_data *data, t_philo *lst, int philo_nbr)
+{
 	int		i;
+	t_philo	*temp;
 
 	i = 0;
 	temp = lst;
 	while (i < philo_nbr)
 	{
-		temp = lst;
-		lst = lst->next;
-		pthread_mutex_destroy(&temp->mutex);
-		free(temp);
+		if (pthread_create(&temp->thread, NULL, routine, data))
+			return (free_struct(data), exit(1));
+		if (pthread_join(temp->thread, NULL))
+			return (free_struct(data), exit(1));
+		temp = temp->next;
 		i++;
 	}
 }
 
-void	free_lst(t_error *errors)
+void	start_routine(t_data *data)
 {
-	t_error	*temp;
-
-	while (errors)
-	{
-		temp = errors;
-		errors = errors->next;
-		free(temp);
-	}
-}
-
-void	free_struct(t_data *data)
-{
-	if (data->errors)
-		free_lst(data->errors);
-	if (data->philos)
-		free_philos(data->philos, data->philo_number);
+	thread_init(data, data->philos, data->philo_number);
 }
