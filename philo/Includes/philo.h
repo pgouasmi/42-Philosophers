@@ -6,7 +6,7 @@
 /*   By: pgouasmi <pgouasmi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:51:36 by pgouasmi          #+#    #+#             */
-/*   Updated: 2023/11/07 17:10:15 by pgouasmi         ###   ########.fr       */
+/*   Updated: 2023/11/07 17:15:44 by pgouasmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ typedef struct s_data
 	int				meals_to_eat;
 	__uint64_t		starttime;
 	pthread_mutex_t	mutex;
-	int				arg_error;
 	t_philo			*philos;
 	t_error			*errors;
 }			t_data;

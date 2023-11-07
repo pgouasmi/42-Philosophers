@@ -6,7 +6,7 @@
 /*   By: pgouasmi <pgouasmi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 16:13:19 by pgouasmi          #+#    #+#             */
-/*   Updated: 2023/11/07 16:54:10 by pgouasmi         ###   ########.fr       */
+/*   Updated: 2023/11/07 17:16:17 by pgouasmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,10 @@ static void	parse_argv(t_data *data, char **argv)
 	size_t	j;
 
 	j = 1;
-	data->errors = NULL;
-	data->arg_error = 0;
 	while (argv[j])
 	{
 		if (arg_has_wrong_char(argv[j]))
 		{
-			data->arg_error++;
 			if (add_error(&data->errors, j))
 				return (free_struct(data), exit(2));
 		}
@@ -34,7 +31,7 @@ static void	parse_argv(t_data *data, char **argv)
 static void	argv_into_struct(t_data	*data, char **argv)
 {
 	parse_argv(data, argv);
-	if (data->arg_error)
+	if (data->errors)
 		return (display_errors(data->errors), free_struct(data), exit(2));
 	data->philo_number = ft_atoi(argv[1]);
 	data->time_to_die = ft_atoi(argv[2]);
@@ -57,8 +54,10 @@ __uint64_t	get_time_ms(void)
 
 void	init_struct(t_data *data, char **argv)
 {
+	data->philos = NULL;
+	data->errors = NULL;
 	argv_into_struct(data, argv);
 	philo_init(data);
 	data->starttime = get_time_ms();
-	printf("time day = %ld\n", data->starttime);
+	// printf("time day = %ld\n", data->starttime);
 }
