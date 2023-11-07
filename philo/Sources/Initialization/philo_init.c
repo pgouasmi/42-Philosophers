@@ -6,7 +6,7 @@
 /*   By: pgouasmi <pgouasmi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 16:53:17 by pgouasmi          #+#    #+#             */
-/*   Updated: 2023/11/07 17:04:03 by pgouasmi         ###   ########.fr       */
+/*   Updated: 2023/11/07 17:10:23 by pgouasmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	init_new_philo(t_data *data, t_philo *new)
 
 static void	create_philo(t_data *data, t_philo **lst, int philo_id)
 {
-	t_philo *new;
+	t_philo	*new;
 	t_philo	*temp;
 
 	new = malloc(sizeof(*new));
