@@ -6,7 +6,7 @@
 /*   By: pgouasmi <pgouasmi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 16:53:17 by pgouasmi          #+#    #+#             */
-/*   Updated: 2023/11/07 17:10:23 by pgouasmi         ###   ########.fr       */
+/*   Updated: 2023/11/09 18:29:54 by pgouasmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,16 @@
 
 static void	init_new_philo(t_data *data, t_philo *new)
 {
-	new->fork_nb = 1;
 	new->meals_eaten = 0;
-	new->time_to_die = data->time_to_die;
-	new->time_to_eat = data->time_to_eat;
-	new->time_to_sleep = data->time_to_eat;
+	new->time_to_die = (size_t)data->time_to_die;
+	new->time_to_eat = (size_t)data->time_to_eat;
+	new->time_to_sleep = (size_t)data->time_to_eat;
 	new->meals_to_eat = data->meals_to_eat;
 	new->data = data;
-	if (pthread_mutex_init(&new->mutex, NULL))
-		return (free_struct(data), exit(1));
+	new->state = INIT;
+	new->dead_flag = &data->dead_flag;
+	new->time_last_meal = get_time_ms();
+	pthread_mutex_init(&new->fork, NULL);
 }
 
 static void	create_philo(t_data *data, t_philo **lst, int philo_id)

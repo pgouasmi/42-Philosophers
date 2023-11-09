@@ -6,7 +6,7 @@
 /*   By: pgouasmi <pgouasmi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:36:30 by pgouasmi          #+#    #+#             */
-/*   Updated: 2023/11/07 16:59:56 by pgouasmi         ###   ########.fr       */
+/*   Updated: 2023/11/09 11:23:20 by pgouasmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	free_philos(t_philo *lst, int philo_nbr)
 	{
 		temp = lst;
 		lst = lst->next;
-		pthread_mutex_destroy(&temp->mutex);
 		free(temp);
 		i++;
 	}

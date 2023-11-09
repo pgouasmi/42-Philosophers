@@ -6,7 +6,7 @@
 /*   By: pgouasmi <pgouasmi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 16:13:19 by pgouasmi          #+#    #+#             */
-/*   Updated: 2023/11/07 17:16:17 by pgouasmi         ###   ########.fr       */
+/*   Updated: 2023/11/09 15:56:30 by pgouasmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	argv_into_struct(t_data	*data, char **argv)
 		data->meals_to_eat = -1;
 }
 
-__uint64_t	get_time_ms(void)
+size_t	get_time_ms(void)
 {
 	struct timeval	time_value;
 
@@ -56,6 +56,7 @@ void	init_struct(t_data *data, char **argv)
 {
 	data->philos = NULL;
 	data->errors = NULL;
+	data->dead_flag = 0;
 	argv_into_struct(data, argv);
 	philo_init(data);
 	data->starttime = get_time_ms();
