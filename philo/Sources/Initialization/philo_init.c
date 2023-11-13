@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgouasmi <pgouasmi@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: pgouasmi <pgouasmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 16:53:17 by pgouasmi          #+#    #+#             */
-/*   Updated: 2023/11/09 18:29:54 by pgouasmi         ###   ########.fr       */
+/*   Updated: 2023/11/13 18:08:38 by pgouasmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,12 @@ static void	init_new_philo(t_data *data, t_philo *new)
 	new->data = data;
 	new->state = INIT;
 	new->dead_flag = &data->dead_flag;
-	new->time_last_meal = get_time_ms();
+	new->full_flag = &data->full_flag;
 	pthread_mutex_init(&new->fork, NULL);
+	pthread_mutex_init(&new->mutex_last_meal, NULL);
+	pthread_mutex_init(&new->state_mutex, NULL);
+	pthread_mutex_init(&new->meals_eaten_mutex, NULL);
+	new->time_last_meal = get_time_ms();
 }
 
 static void	create_philo(t_data *data, t_philo **lst, int philo_id)

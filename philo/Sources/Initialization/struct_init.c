@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgouasmi <pgouasmi@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: pgouasmi <pgouasmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 16:13:19 by pgouasmi          #+#    #+#             */
-/*   Updated: 2023/11/09 15:56:30 by pgouasmi         ###   ########.fr       */
+/*   Updated: 2023/11/13 17:04:05 by pgouasmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,15 @@ static void	argv_into_struct(t_data	*data, char **argv)
 		data->meals_to_eat = -1;
 }
 
+size_t	get_time_us(void)
+{
+	struct timeval	time_value;
+
+	if (gettimeofday(&time_value, NULL))
+		return (0);
+	return (time_value.tv_usec);
+}
+
 size_t	get_time_ms(void)
 {
 	struct timeval	time_value;
@@ -57,8 +66,8 @@ void	init_struct(t_data *data, char **argv)
 	data->philos = NULL;
 	data->errors = NULL;
 	data->dead_flag = 0;
+	data->full_flag = 0;
 	argv_into_struct(data, argv);
 	philo_init(data);
 	data->starttime = get_time_ms();
-	// printf("time day = %ld\n", data->starttime);
 }

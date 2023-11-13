@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct_init_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgouasmi <pgouasmi@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: pgouasmi <pgouasmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 11:28:39 by pgouasmi          #+#    #+#             */
-/*   Updated: 2023/11/07 11:32:08 by pgouasmi         ###   ########.fr       */
+/*   Updated: 2023/11/13 10:32:09 by pgouasmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@ void	display_errors(t_error *errors)
 	while (temp)
 	{
 		if (errors->type == 1)
-			printf("Bad input : `Number_of_philosophers'\n");
+			write(2, "Bad input : `Number_of_philosophers'\n", 38);
 		else if (errors->type == 2)
-			printf("Bad input : `Time_to_die'\n");
+			write(2, "Bad input : `Time_to_die'\n", 27);
 		else if (errors->type == 3)
-			printf("Bad input : `Time_to_eat'\n");
+			write(2, "Bad input : `Time_to_eat'\n", 27);
 		else if (errors->type == 4)
-			printf("Bad input : `Time_to_sleep'\n");
+			write(2, "Bad input : `Time_to_sleep'\n", 29);
 		else
-			printf("Bad input : `Number_of_times_each_philosopher_must_eat'\n");
+			write(2, "Bad input : `Number_of_times_each_philosopher_must_eat'\n", 57);
 		temp = temp->next;
 	}
 }
