@@ -6,7 +6,7 @@
 /*   By: pgouasmi <pgouasmi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 16:37:18 by pgouasmi          #+#    #+#             */
-/*   Updated: 2023/11/14 14:29:08 by pgouasmi         ###   ########.fr       */
+/*   Updated: 2023/11/14 14:41:49 by pgouasmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,23 +51,23 @@ int	philo_eats(t_philo *philo)
 
 void	philo_sleeps(t_philo *philo)
 {
-	if (!end_condition(philo))
-	{
-		philo->state = SLEEPING;
-		print("is sleeping", philo);
-		ft_usleep(philo->time_to_sleep);
-	}
+	pthread_mutex_lock(&philo->state_mutex);
+	philo->state = SLEEPING;
+	pthread_mutex_unlock(&philo->state_mutex);
+	if (end_condition(philo))
+		return ;
+	print("is sleeping", philo);
+	ft_usleep(philo->time_to_sleep);
 }
 
 void	philo_thinks(t_philo *philo)
 {
-	if (!end_condition(philo))
-	{
-		print("is thinking", philo);
-		pthread_mutex_lock(&philo->state_mutex);
-		philo->state = THINKING;
-		pthread_mutex_unlock(&philo->state_mutex);
-	}
+	if (end_condition(philo))
+		return ;
+	print("is thinking", philo);
+	pthread_mutex_lock(&philo->state_mutex);
+	philo->state = THINKING;
+	pthread_mutex_unlock(&philo->state_mutex);
 }
 
 void	*routine(void *arg)

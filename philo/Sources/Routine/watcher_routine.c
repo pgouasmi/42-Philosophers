@@ -6,7 +6,7 @@
 /*   By: pgouasmi <pgouasmi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 14:06:26 by pgouasmi          #+#    #+#             */
-/*   Updated: 2023/11/14 14:22:39 by pgouasmi         ###   ########.fr       */
+/*   Updated: 2023/11/14 14:36:58 by pgouasmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	*routine_watcher(void *arg)
 			break ;
 		if (have_eaten_all_meals(data))
 			break ;
-		ft_usleep(10);
+		ft_usleep(100);
 	}
 	return (arg);
 }
