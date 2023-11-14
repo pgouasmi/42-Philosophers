@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgouasmi <pgouasmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgouasmi <pgouasmi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:51:36 by pgouasmi          #+#    #+#             */
-/*   Updated: 2023/11/13 18:32:27 by pgouasmi         ###   ########.fr       */
+/*   Updated: 2023/11/14 14:21:06 by pgouasmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@
 # define INIT 4
 # define DFLAG 5
 # define FFLAG 6
-
 
 //STRUCTURES
 typedef struct s_philo
@@ -62,7 +61,6 @@ typedef struct s_error
 	struct s_error	*next;
 }			t_error;
 
-
 typedef struct s_data
 {
 	int				philo_number;
@@ -87,11 +85,15 @@ int		arg_has_wrong_char(char *str);
 int		add_error(t_error **error_lst, size_t error);
 void	display_errors(t_error *errors);
 int		ft_atoi(const char *str);
+void	ft_usleep(size_t to_sleep);
 size_t	get_time_ms(void);
-size_t	get_time_us(void);
 void	philo_init(t_data *data);
 void	free_struct(t_data *data);
 void	threads_init(t_data *data, t_philo *lst, int philo_nbr);
+int		end_condition(t_philo *philo);
+void	*routine_watcher(void *arg);
+void	*routine(void *arg);
+void	print(char *to_display, t_philo *philo);
 int		end_condition(t_philo *philo);
 
 #endif

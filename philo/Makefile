@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pgouasmi <pgouasmi@student.42.fr>          +#+  +:+       +#+         #
+#    By: pgouasmi <pgouasmi@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/06 15:47:49 by pgouasmi          #+#    #+#              #
-#    Updated: 2023/11/10 11:02:41 by pgouasmi         ###   ########.fr        #
+#    Updated: 2023/11/14 14:20:26 by pgouasmi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,22 +28,26 @@ CC = @cc
 DIR = @mkdir -p
 PRINT = @echo
 HEADER = Includes/philo.h
-# NORM = @norminette | awk '$$NF!="OK!" {print "$(_RED)" $$0 "\033[0;0m"}'
+NORM = @norminette | awk '$$NF!="OK!" {print "$(_RED)" $$0 "\033[0;0m"}'
 FILES = philo\
 		Initialization/struct_init\
 		Initialization/struct_init_utils\
 		Initialization/philo_init\
 		Utils/ft_atoi\
+		Utils/ft_usleep\
 		Free/free_struct\
-		Routine/routine
+		Routine/threads_init\
+		Routine/routine\
+		Routine/routine_utils\
+		Routine/watcher_routine
 
 OBJS = $(addsuffix .o, $(addprefix Objects/, $(FILES)))
 
 $(NAME): $(OBJS)
 ifeq ($(OS),Linux)
-	# $(PRINT) "\n${_BOLD}Waiting for norminette...${_END}"
-	# $(NORM)
-	# $(PRINT) "${_BOLD}Norminette done.${_END}"
+	$(PRINT) "\n${_BOLD}Waiting for norminette...${_END}"
+	$(NORM)
+	$(PRINT) "${_BOLD}Norminette done.${_END}"
 	$(PRINT) "\n${_YELLOW}Making $(NAME)...${_END}"
 	$(CC) $(OBJS) -pthread -o $(NAME)
 	$(PRINT) "${_BOLD}${_GREEN}$(NAME) done.\a${_END}"

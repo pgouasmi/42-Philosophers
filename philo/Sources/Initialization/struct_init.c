@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgouasmi <pgouasmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgouasmi <pgouasmi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 16:13:19 by pgouasmi          #+#    #+#             */
-/*   Updated: 2023/11/13 17:04:05 by pgouasmi         ###   ########.fr       */
+/*   Updated: 2023/11/14 14:05:55 by pgouasmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,7 @@ void	init_struct(t_data *data, char **argv)
 	argv_into_struct(data, argv);
 	philo_init(data);
 	data->starttime = get_time_ms();
+	pthread_mutex_init(&data->print, NULL);
+	pthread_mutex_init(&data->fflag, NULL);
+	pthread_mutex_init(&data->dflag, NULL);
 }
