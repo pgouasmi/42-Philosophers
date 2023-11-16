@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgouasmi <pgouasmi@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: pgouasmi <pgouasmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:51:36 by pgouasmi          #+#    #+#             */
-/*   Updated: 2023/11/14 14:21:06 by pgouasmi         ###   ########.fr       */
+/*   Updated: 2023/11/16 13:39:16 by pgouasmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_philo
 	size_t			time_last_meal;
 	pthread_t		thread;
 	pthread_mutex_t	fork;
+	int				held_fflag;
 	size_t			current_time;
 	pthread_mutex_t	state_mutex;
 	int				state;

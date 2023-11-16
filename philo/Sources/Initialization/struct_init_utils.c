@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct_init_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgouasmi <pgouasmi@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: pgouasmi <pgouasmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 11:28:39 by pgouasmi          #+#    #+#             */
-/*   Updated: 2023/11/14 14:21:26 by pgouasmi         ###   ########.fr       */
+/*   Updated: 2023/11/16 13:01:49 by pgouasmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ void	display_errors(t_error *errors)
 		else if (errors->type == 4)
 			write(2, "Bad input : `Time_to_sleep'\n", 29);
 		else
-			write(2, "Bad input : `Number_of_times_each_philosopher_must_eat'\n",
-				57);
+			write(2, "Bad input : `Number_of_times_each_philosopher_must_eat'\n", 57);
 		temp = temp->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: pgouasmi <pgouasmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 16:53:17 by pgouasmi          #+#    #+#             */
-/*   Updated: 2023/11/13 18:08:38 by pgouasmi         ###   ########.fr       */
+/*   Updated: 2023/11/16 13:39:37 by pgouasmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static void	init_new_philo(t_data *data, t_philo *new)
 	pthread_mutex_init(&new->mutex_last_meal, NULL);
 	pthread_mutex_init(&new->state_mutex, NULL);
 	pthread_mutex_init(&new->meals_eaten_mutex, NULL);
+	new->held_fflag = 0;
 	new->time_last_meal = get_time_ms();
 }
 

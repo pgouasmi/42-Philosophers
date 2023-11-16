@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgouasmi <pgouasmi@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: pgouasmi <pgouasmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 16:37:18 by pgouasmi          #+#    #+#             */
-/*   Updated: 2023/11/14 14:41:49 by pgouasmi         ###   ########.fr       */
+/*   Updated: 2023/11/16 14:30:23 by pgouasmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,22 @@
 
 int	take_fork(t_philo *philo, t_philo *holding)
 {
+	while (holding->held_fflag)
+		ft_usleep(10);
 	pthread_mutex_lock(&holding->fork);
+	holding->held_fflag = 1;
 	if (end_condition(philo))
 		return (1);
 	print("has taken a fork", philo);
+	pthread_mutex_unlock(&holding->fork);
 	return (0);
+}
+
+void	drop_fork(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->fork);
+	philo->held_fflag = 0;
+	pthread_mutex_unlock(&philo->fork);
 }
 
 int	philo_eats(t_philo *philo)
@@ -41,8 +52,8 @@ int	philo_eats(t_philo *philo)
 	philo->time_last_meal = get_time_ms();
 	pthread_mutex_unlock(&philo->mutex_last_meal);
 	ft_usleep(philo->time_to_eat);
-	pthread_mutex_unlock(&philo->fork);
-	pthread_mutex_unlock(&philo->next->fork);
+	drop_fork(philo);
+	drop_fork(philo->next);
 	pthread_mutex_lock(&philo->meals_eaten_mutex);
 	philo->meals_eaten++;
 	pthread_mutex_unlock(&philo->meals_eaten_mutex);
