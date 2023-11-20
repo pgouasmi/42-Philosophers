@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgouasmi <pgouasmi@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: pgouasmi <pgouasmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 16:18:15 by pgouasmi          #+#    #+#             */
-/*   Updated: 2023/11/07 11:00:08 by pgouasmi         ###   ########.fr       */
+/*   Updated: 2023/11/20 14:47:08 by pgouasmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "philo.h"
 
 static int	check_space(char c)
 {
@@ -24,11 +26,11 @@ static int	check_number(char c)
 	return (0);
 }
 
-int	ft_atoi(const char *str)
+size_t	ft_atoi(const char *str)
 {
-	int	value;
-	int	index;
-	int	sign;
+	size_t	value;
+	size_t	index;
+	int		sign;
 
 	value = 0;
 	index = 0;

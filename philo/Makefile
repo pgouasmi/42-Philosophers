@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pgouasmi <pgouasmi@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: pgouasmi <pgouasmi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/06 15:47:49 by pgouasmi          #+#    #+#              #
-#    Updated: 2023/11/14 14:20:26 by pgouasmi         ###   ########.fr        #
+#    Updated: 2023/11/20 15:15:19 by pgouasmi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

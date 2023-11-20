@@ -3,22 +3,58 @@
 /*                                                        :::      ::::::::   */
 /*   routine_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgouasmi <pgouasmi@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: pgouasmi <pgouasmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 14:15:15 by pgouasmi          #+#    #+#             */
-/*   Updated: 2023/11/14 14:22:05 by pgouasmi         ###   ########.fr       */
+/*   Updated: 2023/11/20 14:34:33 by pgouasmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	print(char *to_display, t_philo *philo)
+int	take_fork(t_philo *philo, t_philo *holding)
 {
-	size_t	time_value;
+	int	flag;
 
-	time_value = get_time_ms() - philo->data->starttime;
+	flag = 1;
+	while (flag)
+	{
+		if (end_condition(philo))
+			return (1);
+		pthread_mutex_lock(&holding->fork);
+		flag = holding->held_fflag;
+		if (!flag)
+			holding->held_fflag = 1;
+		pthread_mutex_unlock(&holding->fork);
+		usleep(1);
+	}
+	if (end_condition(philo))
+		return (1);
+	print("has taken a fork", philo, -1);
+	return (0);
+}
+
+void	drop_fork(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->fork);
+	philo->held_fflag = 0;
+	pthread_mutex_unlock(&philo->fork);
+}
+
+void	print(char *to_display, t_philo *philo, int type)
+{
+	if (type == DEAD)
+	{
+		pthread_mutex_lock(&philo->data->print);
+		printf("%zu %zu %s\n", get_time_ms() - philo->data->starttime,
+			philo->id, to_display);
+		pthread_mutex_unlock(&philo->data->print);
+		return ;
+	}
 	pthread_mutex_lock(&philo->data->print);
-	printf("%zu %d %s\n", time_value, philo->id, to_display);
+	if (!end_condition(philo))
+		printf("%zu %zu %s\n", get_time_ms() - philo->data->starttime,
+			philo->id, to_display);
 	pthread_mutex_unlock(&philo->data->print);
 }
 

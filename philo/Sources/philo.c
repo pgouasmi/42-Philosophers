@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgouasmi <pgouasmi@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: pgouasmi <pgouasmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:49:18 by pgouasmi          #+#    #+#             */
-/*   Updated: 2023/11/09 15:49:56 by pgouasmi         ###   ########.fr       */
+/*   Updated: 2023/11/20 14:46:26 by pgouasmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int	main(int argc, char **argv)
 
 	if (argc < 5 || argc > 6)
 		return (1);
-	init_struct(&data, argv);
+	if (init_struct(&data, argv))
+		return (1);
 	threads_init(&data, data.philos, data.philo_number);
 	return (free_struct(&data), 0);
 }

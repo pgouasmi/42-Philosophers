@@ -6,7 +6,7 @@
 /*   By: pgouasmi <pgouasmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 11:28:39 by pgouasmi          #+#    #+#             */
-/*   Updated: 2023/11/16 13:01:49 by pgouasmi         ###   ########.fr       */
+/*   Updated: 2023/11/20 13:12:26 by pgouasmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ void	display_errors(t_error *errors)
 		else if (errors->type == 4)
 			write(2, "Bad input : `Time_to_sleep'\n", 29);
 		else
-			write(2, "Bad input : `Number_of_times_each_philosopher_must_eat'\n", 57);
+		{
+			write(2, "Bad input :", 12);
+			write(2, "`Number_of_times_each_philosopher_must_eat'\n", 45);
+		}
 		temp = temp->next;
 	}
 }

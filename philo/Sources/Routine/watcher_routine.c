@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   watcher_routine.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgouasmi <pgouasmi@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: pgouasmi <pgouasmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 14:06:26 by pgouasmi          #+#    #+#             */
-/*   Updated: 2023/11/14 14:36:58 by pgouasmi         ###   ########.fr       */
+/*   Updated: 2023/11/20 14:23:37 by pgouasmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	check_dead(t_data *data)
 		if (gap >= temp->time_to_die)
 		{
 			update_flag(DFLAG, 1, data);
-			print("died", temp);
+			print("died", temp, DEAD);
 			return (1);
 		}
 		temp = temp->next;
@@ -86,7 +86,7 @@ void	*routine_watcher(void *arg)
 			break ;
 		if (have_eaten_all_meals(data))
 			break ;
-		ft_usleep(100);
+		usleep(10);
 	}
 	return (arg);
 }
