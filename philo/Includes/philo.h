@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgouasmi <pgouasmi@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: pgouasmi <pgouasmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:51:36 by pgouasmi          #+#    #+#             */
-/*   Updated: 2023/11/14 14:21:06 by pgouasmi         ###   ########.fr       */
+/*   Updated: 2023/11/21 14:15:50 by pgouasmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <pthread.h>
 
 //DEFINES
+# define INTMAX 2147483647
 # define DEAD 0
 # define EATING 1
 # define SLEEPING 2
@@ -33,20 +34,21 @@
 //STRUCTURES
 typedef struct s_philo
 {
-	int				id;
+	size_t			id;
 	pthread_mutex_t	meals_eaten_mutex;
-	int				meals_eaten;
-	int				philo_number;
+	size_t			meals_eaten;
+	size_t			philo_number;
 	size_t			time_to_die;
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
-	int				meals_to_eat;
+	size_t			meals_to_eat;
 	int				*dead_flag;
 	int				*full_flag;
 	pthread_mutex_t	mutex_last_meal;
 	size_t			time_last_meal;
 	pthread_t		thread;
 	pthread_mutex_t	fork;
+	int				held_fflag;
 	size_t			current_time;
 	pthread_mutex_t	state_mutex;
 	int				state;
@@ -55,19 +57,13 @@ typedef struct s_philo
 	struct s_philo	*prev;
 }			t_philo;
 
-typedef struct s_error
-{
-	size_t			type;
-	struct s_error	*next;
-}			t_error;
-
 typedef struct s_data
 {
 	int				philo_number;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
-	int				meals_to_eat;
+	size_t			time_to_die;
+	size_t			time_to_eat;
+	size_t			time_to_sleep;
+	size_t			meals_to_eat;
 	pthread_mutex_t	dflag;
 	int				dead_flag;
 	pthread_mutex_t	fflag;
@@ -76,24 +72,25 @@ typedef struct s_data
 	pthread_mutex_t	print;
 	pthread_t		watcher;
 	t_philo			*philos;
-	t_error			*errors;
 }			t_data;
 
 //PROTOTYPES
-void	init_struct(t_data *data, char **argv);
+int		init_struct(t_data *data, char **argv);
 int		arg_has_wrong_char(char *str);
-int		add_error(t_error **error_lst, size_t error);
-void	display_errors(t_error *errors);
-int		ft_atoi(const char *str);
-void	ft_usleep(size_t to_sleep);
+void	display_errors(int type);
+size_t	ft_atoi(const char *str);
+void	ft_usleep(size_t to_sleep, t_philo *philo);
 size_t	get_time_ms(void);
-void	philo_init(t_data *data);
+int		philo_init(t_data *data);
 void	free_struct(t_data *data);
-void	threads_init(t_data *data, t_philo *lst, int philo_nbr);
+void	free_philos(t_philo *lst, int philo_nbr);
+int		threads_init(t_data *data, t_philo *lst, int philo_nbr);
 int		end_condition(t_philo *philo);
 void	*routine_watcher(void *arg);
 void	*routine(void *arg);
-void	print(char *to_display, t_philo *philo);
+void	print(char *to_display, t_philo *philo, int type);
+int		take_fork(t_philo *philo, t_philo *holding);
+void	drop_fork(t_philo *philo);
 int		end_condition(t_philo *philo);
 
 #endif

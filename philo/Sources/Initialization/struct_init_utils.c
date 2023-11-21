@@ -3,57 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   struct_init_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgouasmi <pgouasmi@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: pgouasmi <pgouasmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 11:28:39 by pgouasmi          #+#    #+#             */
-/*   Updated: 2023/11/14 14:21:26 by pgouasmi         ###   ########.fr       */
+/*   Updated: 2023/11/21 14:11:15 by pgouasmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	display_errors(t_error *errors)
+void	display_errors(int type)
 {
-	t_error	*temp;
-
-	temp = errors;
-	while (temp)
+	if (type == 1)
+		write(2, "Bad input : `Number_of_philosophers'\n", 38);
+	else if (type == 2)
+		write(2, "Bad input : `Time_to_die'\n", 27);
+	else if (type == 3)
+		write(2, "Bad input : `Time_to_eat'\n", 27);
+	else if (type == 4)
+		write(2, "Bad input : `Time_to_sleep'\n", 29);
+	else if (type == 5)
 	{
-		if (errors->type == 1)
-			write(2, "Bad input : `Number_of_philosophers'\n", 38);
-		else if (errors->type == 2)
-			write(2, "Bad input : `Time_to_die'\n", 27);
-		else if (errors->type == 3)
-			write(2, "Bad input : `Time_to_eat'\n", 27);
-		else if (errors->type == 4)
-			write(2, "Bad input : `Time_to_sleep'\n", 29);
-		else
-			write(2, "Bad input : `Number_of_times_each_philosopher_must_eat'\n",
-				57);
-		temp = temp->next;
+		write(2, "Bad input :", 12);
+		write(2, "`Number_of_times_each_philosopher_must_eat'\n", 45);
 	}
-}
-
-int	add_error(t_error **error_lst, size_t error)
-{
-	t_error	*new;
-	t_error	*temp;
-
-	new = malloc(sizeof(*new));
-	if (!new)
-		return (1);
-	new->type = error;
-	if (!*error_lst)
-		*error_lst = new;
-	else
-	{
-		temp = *error_lst;
-		while (temp->next)
-			temp = temp->next;
-		temp->next = new;
-	}
-	new->next = NULL;
-	return (0);
 }
 
 static int	is_num(char c)
@@ -68,6 +41,8 @@ int	arg_has_wrong_char(char *str)
 	size_t	i;
 
 	i = 0;
+	if (str[i] == '+')
+		i++;
 	while (str[i])
 	{
 		if (!is_num(str[i]))
