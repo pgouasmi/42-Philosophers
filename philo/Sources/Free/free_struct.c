@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgouasmi <pgouasmi@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: pgouasmi <pgouasmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:36:30 by pgouasmi          #+#    #+#             */
-/*   Updated: 2023/11/09 11:23:20 by pgouasmi         ###   ########.fr       */
+/*   Updated: 2023/11/21 14:08:52 by pgouasmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,24 +26,11 @@ void	free_philos(t_philo *lst, int philo_nbr)
 		free(temp);
 		i++;
 	}
-}
-
-void	free_lst(t_error *errors)
-{
-	t_error	*temp;
-
-	while (errors)
-	{
-		temp = errors;
-		errors = errors->next;
-		free(temp);
-	}
+	lst = NULL;
 }
 
 void	free_struct(t_data *data)
 {
-	if (data->errors)
-		free_lst(data->errors);
 	if (data->philos)
 		free_philos(data->philos, data->philo_number);
 }

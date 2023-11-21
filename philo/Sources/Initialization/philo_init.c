@@ -6,7 +6,7 @@
 /*   By: pgouasmi <pgouasmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 16:53:17 by pgouasmi          #+#    #+#             */
-/*   Updated: 2023/11/16 13:39:37 by pgouasmi         ###   ########.fr       */
+/*   Updated: 2023/11/21 14:10:35 by pgouasmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,24 @@ static void	init_new_philo(t_data *data, t_philo *new)
 	new->time_last_meal = get_time_ms();
 }
 
-static void	create_philo(t_data *data, t_philo **lst, int philo_id)
+void	philo_addback(t_philo **lst, t_philo *new)
+{
+	t_philo	*temp;
+
+	temp = *lst;
+	while (temp->next)
+		temp = temp->next;
+	temp->next = new;
+	new->prev = temp;
+}
+
+static int	create_philo(t_data *data, t_philo **lst, int philo_id)
 {
 	t_philo	*new;
-	t_philo	*temp;
 
 	new = malloc(sizeof(*new));
 	if (!new)
-		return (free_struct(data), exit(1));
+		return (1);
 	new->id = philo_id;
 	if (!*lst)
 	{
@@ -46,21 +56,16 @@ static void	create_philo(t_data *data, t_philo **lst, int philo_id)
 		new->prev = NULL;
 	}
 	else
-	{
-		temp = *lst;
-		while (temp->next)
-			temp = temp->next;
-		temp->next = new;
-		new->prev = temp;
-	}
+		philo_addback(lst, new);
 	if (philo_id == data->philo_number)
 		new->next = *lst;
 	else
 		new->next = NULL;
 	init_new_philo(data, new);
+	return (0);
 }
 
-void	philo_init(t_data *data)
+int	philo_init(t_data *data)
 {
 	int	i;
 
@@ -68,7 +73,9 @@ void	philo_init(t_data *data)
 	i = 0;
 	while (i < data->philo_number)
 	{
-		create_philo(data, &data->philos, i + 1);
+		if (create_philo(data, &data->philos, i + 1))
+			return (free_philos(data->philos, i), 1);
 		i++;
 	}
+	return (0);
 }

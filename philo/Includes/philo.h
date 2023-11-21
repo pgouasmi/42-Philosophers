@@ -6,7 +6,7 @@
 /*   By: pgouasmi <pgouasmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:51:36 by pgouasmi          #+#    #+#             */
-/*   Updated: 2023/11/20 15:15:13 by pgouasmi         ###   ########.fr       */
+/*   Updated: 2023/11/21 14:15:50 by pgouasmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,6 @@ typedef struct s_philo
 	struct s_philo	*prev;
 }			t_philo;
 
-typedef struct s_error
-{
-	size_t			type;
-	struct s_error	*next;
-}			t_error;
-
 typedef struct s_data
 {
 	int				philo_number;
@@ -78,20 +72,19 @@ typedef struct s_data
 	pthread_mutex_t	print;
 	pthread_t		watcher;
 	t_philo			*philos;
-	t_error			*errors;
 }			t_data;
 
 //PROTOTYPES
 int		init_struct(t_data *data, char **argv);
 int		arg_has_wrong_char(char *str);
-int		add_error(t_error **error_lst, size_t error);
-void	display_errors(t_error *errors);
+void	display_errors(int type);
 size_t	ft_atoi(const char *str);
 void	ft_usleep(size_t to_sleep, t_philo *philo);
 size_t	get_time_ms(void);
-void	philo_init(t_data *data);
+int		philo_init(t_data *data);
 void	free_struct(t_data *data);
-void	threads_init(t_data *data, t_philo *lst, int philo_nbr);
+void	free_philos(t_philo *lst, int philo_nbr);
+int		threads_init(t_data *data, t_philo *lst, int philo_nbr);
 int		end_condition(t_philo *philo);
 void	*routine_watcher(void *arg);
 void	*routine(void *arg);

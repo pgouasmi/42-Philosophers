@@ -6,7 +6,7 @@
 /*   By: pgouasmi <pgouasmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 14:06:26 by pgouasmi          #+#    #+#             */
-/*   Updated: 2023/11/20 14:23:37 by pgouasmi         ###   ########.fr       */
+/*   Updated: 2023/11/21 13:31:37 by pgouasmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	check_dead(t_data *data)
 		pthread_mutex_lock(&temp->mutex_last_meal);
 		gap = get_time_ms() - temp->time_last_meal;
 		pthread_mutex_unlock(&temp->mutex_last_meal);
-		if (gap >= temp->time_to_die)
+		if (gap > temp->time_to_die)
 		{
 			update_flag(DFLAG, 1, data);
 			print("died", temp, DEAD);
